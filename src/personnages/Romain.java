@@ -28,5 +28,23 @@ public class Romain {
 		} else {
 			parler("J'abandonne...");
 		}
+		
 	}
+	
+	@Override
+	public String toString() {
+		return "Romain [nom=" + nom + ", force=" + force + "]";
+	}
+
+	
+	
+	public static void main(String[] args) {
+
+		Romain césar;
+		césar = new Romain("César", 6);
+		System.out.println(césar);
+		
+	}
+	
+	
 }
