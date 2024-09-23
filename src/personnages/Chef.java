@@ -1,5 +1,7 @@
 package personnages;
 
+import Lieux.Village;
+
 public class Chef {
 	private String nom;
 	private int force;
