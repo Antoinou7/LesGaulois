@@ -26,7 +26,8 @@ public class Gaulois {
 	}
 
 	private String prendreParole() {
-		return "Le gaulois " + nom + " : ";
+		String texte = "Le gaulois " + nom + " : ";
+		return texte ; 
 	}
 
 //	public void frapper(Romain romain) {
@@ -40,6 +41,7 @@ public class Gaulois {
 		for (int i = 0; trophees != null && i < trophees.length; i++, nbTrophees++) {
 			this.trophees[nbTrophees] = trophees[i];
 		}
+		return ;
 	}
 	public void boirePotion(int forcePotion){
 		effetPotion = forcePotion;
