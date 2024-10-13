@@ -45,49 +45,68 @@ public class Romain {
 //	}
 
 	public Equipement[] recevoirCoup(int forceCoup) {
-		Equipement[] equipementEjecte = null;
-		// précondition
-		assert force > 0;
-		int oldForce = force;
-		forceCoup = calculResistanceEquipement(forceCoup);
-		force -= forceCoup;
-		 if (force > 0) {
-		 parler("Aïe");
-		 } else {
-		 equipementEjecte = ejecterEquipement();
-		 parler("J'abandonne...");
-		 }
-		if (force>0) {
-			parler("Aïe");
-			equipementEjecte = ejecterEquipement();
-			parler("J'abandonne...");
-		}
-		// post condition la force a diminuée
-		assert force < oldForce;
-		return equipementEjecte;
+	    Equipement[] equipementEjecte = null;
+
+	    // Précondition : la force doit être positive
+	    assert force > 0;
+
+	    int oldForce = force;
+	    forceCoup = calculResistanceEquipement(forceCoup);
+
+	    // Si la force du coup après résistance est suffisante, on diminue la force
+	    if (forceCoup > 0) {
+	        force -= forceCoup;
+	    }
+
+	    if (force > 0) {
+	        parler("Aïe");
+	    } else {
+	        equipementEjecte = ejecterEquipement();
+	        parler("J'abandonne...");
+	    }
+
+	    // Postcondition : la force a diminué seulement si le coup était suffisamment fort
+	    assert force < oldForce || forceCoup == 0 : "La force n'a pas diminué car la résistance de l'équipement était suffisante";
+
+	    return equipementEjecte;
 	}
 
+
 	private int calculResistanceEquipement(int forceCoup) {
-		String texte;
-		texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
-		int resistanceEquipement = 0;
-		if ((nbEquipement != 0)) {
-		texte += "\nMais heureusement, grace à mon équipement sa force est diminué de ";
-		for (int i = 0; i < nbEquipement;i++) {
-		if ((equipements[i] != null &&equipements[i].equals(Equipement.BOUCLIER))) {
-		resistanceEquipement += 8;
-		} else {
-		System.out.println("Equipement casque");
-		resistanceEquipement += 5;
-		}
-		
-		}
-		texte += resistanceEquipement + "!";
-		}
-		parler(texte);
-		forceCoup -= resistanceEquipement;
-		return forceCoup;
-		}
+	    String texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
+	    int resistanceEquipement = 0;
+
+	    // Vérifier s'il y a des équipements
+	    if (nbEquipement > 0) {
+	        texte += "\nMais heureusement, grâce à mon équipement, sa force est diminuée de ";
+
+	        for (int i = 0; i < nbEquipement; i++) {
+	            if (equipements[i] != null) {
+	                if (equipements[i].equals(Equipement.BOUCLIER)) {
+	                    resistanceEquipement += 8;
+	                } else if (equipements[i].equals(Equipement.CASQUE)) {
+	                    resistanceEquipement += 5;
+	                }
+	            }
+	        }
+
+	        texte += resistanceEquipement + "!";
+	    }
+
+	    // Afficher les informations de résistance
+	    parler(texte);
+
+	    // Appliquer la résistance à la force du coup
+	    forceCoup -= resistanceEquipement;
+
+	    // S'assurer que la force du coup ne soit pas négative
+	    if (forceCoup < 0) {
+	        forceCoup = 0;
+	    }
+
+	    return forceCoup;
+	}
+
 
 	private Equipement[] ejecterEquipement() {
 		Equipement[] equipementEjecte = new Equipement[nbEquipement];
