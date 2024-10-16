@@ -37,6 +37,13 @@ public class Musee {
 	
 	
 	
+	public void extraireInstructionOcaml() {
+		
+	}
+	
+	
+	
+	
 	
 	
 	
