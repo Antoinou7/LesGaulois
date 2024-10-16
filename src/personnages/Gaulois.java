@@ -1,4 +1,6 @@
 package personnages;
+import Lieux.Musee;
+import Objets.Equipement;
 import personnages.Druide;
 
 public class Gaulois {
@@ -61,6 +63,26 @@ public class Gaulois {
 		System.out.println(asterix);
 		asterix.parler("Je vais me battre");
 		asterix.boirePotion(4);
+		}
+	
+	
+	
+	public void faireUneDonnation(Musee musee) {
+		if (nbTrophees > 0) {
+			System.out.println("Le gaulois "+ nom + " : << Je donne au musée tous mes trophées.");
+			for(int i = 0;i<nbTrophees;i++) {
+				System.out.println("- " + trophees[i].toString());
+				musee.donnerTrophees(this, trophees[i]);
+			}
+			nbTrophees = 0;
+		} else {
+			System.out.println("Le gaulois "+ nom + "n'a aucun trophée à donner.");
+		}
+		
+		
 	}
+	
+	
+	
 
 }
